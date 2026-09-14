@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+Warehouse Dashboard
+</title>
+
+
+<style>
+
+body{
+    font-family: Arial;
+}
+
+
+.card{
+
+display:inline-block;
+padding:20px;
+margin:10px;
+background:#eeeeee;
+border-radius:10px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<h1>
+Organization Warehouse Dashboard
+</h1>
+
+
+<div class="card">
+
+<h3>
+Total Warehouses
+</h3>
+
+<h2>
+{{ total_warehouses }}
+</h2>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Total Items
+</h3>
+
+<h2>
+{{ total_items }}
+</h2>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Total Stock
+</h3>
+
+<h2>
+{{ total_stock }}
+</h2>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Receiving Transactions
+</h3>
+
+<h2>
+{{ total_receiving }}
+</h2>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Issue Transactions
+</h3>
+
+<h2>
+{{ total_issue }}
+</h2>
+
+</div>
+
+
+</body>
+
+</html>
