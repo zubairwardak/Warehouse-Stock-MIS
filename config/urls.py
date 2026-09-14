@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from reports.views import dashboard
 
@@ -13,8 +13,22 @@ urlpatterns = [
 
     path(
         'dashboard/',
-        dashboard,
-        name='dashboard'
+        dashboard
+    ),
+
+    path(
+        'inventory/',
+        include('inventory.urls')
+    ),
+
+    path(
+        'transactions/',
+        include('transactions.urls')
+    ),
+
+    path(
+        'reports/',
+        include('reports.urls')
     ),
 
 ]

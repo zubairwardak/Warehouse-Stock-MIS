@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<h2>
+Transaction Management
+</h2>
+
+
+<div class="card p-4">
+
+
+<h4>
+Recent Receiving
+</h4>
+
+
+<table class="table">
+
+<tr>
+
+<th>
+Voucher
+</th>
+
+<th>
+Supplier
+</th>
+
+<th>
+Date
+</th>
+
+</tr>
+
+
+{% for r in receiving %}
+
+<tr>
+
+<td>
+{{r.voucher_no}}
+</td>
+
+<td>
+{{r.supplier}}
+</td>
+
+<td>
+{{r.date}}
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+
+</div>
+
+
+
+<br>
+
+
+
+<div class="card p-4">
+
+
+<h4>
+Recent Issues
+</h4>
+
+
+<table class="table">
+
+<tr>
+
+<th>
+Voucher
+</th>
+
+<th>
+Department
+</th>
+
+<th>
+Date
+</th>
+
+</tr>
+
+
+
+{% for i in issues %}
+
+<tr>
+
+<td>
+{{i.voucher_no}}
+</td>
+
+<td>
+{{i.department}}
+</td>
+
+<td>
+{{i.date}}
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+
+</div>
+
+
+
+{% endblock %}

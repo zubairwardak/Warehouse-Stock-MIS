@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<h2>
+Low Stock Alert
+</h2>
+
+
+<table class="table">
+
+
+<tr>
+
+<th>
+Item
+</th>
+
+<th>
+Available
+</th>
+
+</tr>
+
+
+
+{% for x in items %}
+
+<tr>
+
+<td>
+{{x.item.name}}
+</td>
+
+
+<td>
+{{x.quantity}}
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+<tr>
+
+<td>
+No Low Stock Items
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h2>
+Current Stock Report
+</h2>
+
+
+<table class="table table-striped">
+
+<tr>
+
+<th>
+Item
+</th>
+
+<th>
+Warehouse
+</th>
+
+<th>
+Location
+</th>
+
+<th>
+Quantity
+</th>
+
+</tr>
+
+
+{% for s in stocks %}
+
+
+<tr>
+
+<td>
+{{s.item.name}}
+</td>
+
+
+<td>
+{{s.warehouse.name}}
+</td>
+
+
+<td>
+{{s.location.name}}
+</td>
+
+
+<td>
+{{s.quantity}}
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+
+{% endblock %}

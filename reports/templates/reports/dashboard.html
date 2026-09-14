@@ -1,114 +1,293 @@
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<title>
-Warehouse Dashboard
-</title>
+{% extends 'base.html' %}
 
 
-<style>
-
-body{
-    font-family: Arial;
-}
+{% block title %}
+Dashboard
+{% endblock %}
 
 
-.card{
 
-display:inline-block;
-padding:20px;
-margin:10px;
-background:#eeeeee;
-border-radius:10px;
-
-}
+{% block content %}
 
 
-</style>
+<h2 class="mb-4">
+📊 Dashboard Overview
+</h2>
 
-</head>
+
+<div class="row">
 
 
-<body>
+<div class="col-md-3">
+<div class="card p-3 bg-primary text-white">
 
+<h5>
+Warehouses
+</h5>
 
 <h1>
-Organization Warehouse Dashboard
+{{total_warehouses}}
 </h1>
 
+</div>
+</div>
 
-<div class="card">
 
-<h3>
-Total Warehouses
-</h3>
 
-<h2>
-{{ total_warehouses }}
-</h2>
+<div class="col-md-3">
+<div class="card p-3 bg-success text-white">
+
+<h5>
+Items
+</h5>
+
+<h1>
+{{total_items}}
+</h1>
+
+</div>
+</div>
+
+
+
+<div class="col-md-3">
+<div class="card p-3 bg-warning">
+
+<h5>
+Stock Quantity
+</h5>
+
+<h1>
+{{total_stock}}
+</h1>
+
+</div>
+</div>
+
+
+
+<div class="col-md-3">
+<div class="card p-3 bg-danger text-white">
+
+<h5>
+Issues
+</h5>
+
+<h1>
+{{total_issue}}
+</h1>
+
+</div>
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<div class="row">
+
+
+<div class="col-md-6">
+
+<div class="card p-4">
+
+
+<h4>
+Warehouse Stock
+</h4>
+
+
+<canvas id="warehouseChart">
+</canvas>
+
+
+</div>
 
 </div>
 
 
 
-<div class="card">
+<div class="col-md-6">
 
-<h3>
-Total Items
-</h3>
+<div class="card p-4">
 
-<h2>
-{{ total_items }}
-</h2>
+
+<h4>
+⚠ Low Stock Alert
+</h4>
+
+
+<table class="table">
+
+
+<tr>
+
+<th>
+Item
+</th>
+
+<th>
+Quantity
+</th>
+
+</tr>
+
+
+
+{% for item in low_stock_items %}
+
+<tr>
+
+<td>
+{{item.item.name}}
+</td>
+
+
+<td>
+{{item.quantity}}
+</td>
+
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="2">
+No low stock items
+</td>
+
+</tr>
+
+{% endfor %}
+
+
+</table>
+
+
+</div>
+
+</div>
+
 
 </div>
 
 
 
-<div class="card">
+<br>
 
-<h3>
-Total Stock
-</h3>
 
-<h2>
-{{ total_stock }}
-</h2>
+<div class="card p-4">
+
+
+<h4>
+Recent Receiving
+</h4>
+
+
+<table class="table">
+
+
+<tr>
+
+<th>
+Voucher
+</th>
+
+<th>
+Supplier
+</th>
+
+<th>
+Date
+</th>
+
+</tr>
+
+
+{% for r in recent_receiving %}
+
+<tr>
+
+<td>
+{{r.voucher_no}}
+</td>
+
+<td>
+{{r.supplier}}
+</td>
+
+<td>
+{{r.date}}
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
 
 </div>
 
 
 
-<div class="card">
-
-<h3>
-Receiving Transactions
-</h3>
-
-<h2>
-{{ total_receiving }}
-</h2>
-
-</div>
+<script>
 
 
-
-<div class="card">
-
-<h3>
-Issue Transactions
-</h3>
-
-<h2>
-{{ total_issue }}
-</h2>
-
-</div>
+const ctx =
+document.getElementById(
+'warehouseChart'
+);
 
 
-</body>
+new Chart(ctx, {
 
-</html>
+type:'bar',
+
+data:{
+
+labels:[
+
+{% for w in warehouse_data %}
+
+"{{w.name}}",
+
+{% endfor %}
+
+],
+
+
+datasets:[{
+
+label:'Stock Quantity',
+
+data:[
+
+{% for w in warehouse_data %}
+
+{{w.quantity}},
+
+{% endfor %}
+
+]
+
+
+}]
+
+}
+
+});
+
+
+</script>
+
+
+
+{% endblock %}

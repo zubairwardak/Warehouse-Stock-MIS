@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<h2>
+Inventory Items
+</h2>
+
+
+<div class="card p-4">
+
+
+<table class="table table-striped">
+
+
+<tr>
+
+<th>
+Code
+</th>
+
+<th>
+Name
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Unit
+</th>
+
+</tr>
+
+
+{% for item in items %}
+
+
+<tr>
+
+<td>
+{{item.code}}
+</td>
+
+
+<td>
+{{item.name}}
+</td>
+
+
+<td>
+{{item.category}}
+</td>
+
+
+<td>
+{{item.unit}}
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+
+</div>
+
+
+{% endblock %}
