@@ -2,7 +2,39 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
+
+# ==========================
+# Permission Model
+# ==========================
+
+class Permission(models.Model):
+
+    name = models.CharField(
+        max_length=100,
+        unique=True
+    )
+
+    code = models.CharField(
+        max_length=100,
+        unique=True
+    )
+
+    description = models.TextField(
+        blank=True,
+        null=True
+    )
+
+
+    def __str__(self):
+        return self.name
+
+
+
+
+# ==========================
 # Department Model
+# ==========================
+
 class Department(models.Model):
 
     name = models.CharField(
@@ -29,7 +61,12 @@ class Department(models.Model):
 
 
 
+
+
+# ==========================
 # Role Model
+# ==========================
+
 class Role(models.Model):
 
     name = models.CharField(
@@ -43,12 +80,23 @@ class Role(models.Model):
     )
 
 
+    permissions = models.ManyToManyField(
+        Permission,
+        blank=True
+    )
+
+
     def __str__(self):
         return self.name
 
 
 
+
+
+# ==========================
 # Custom User Model
+# ==========================
+
 class User(AbstractUser):
 
     department = models.ForeignKey(

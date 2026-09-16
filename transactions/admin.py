@@ -11,13 +11,82 @@ from .models import (
 )
 
 
-admin.site.register(Receiving)
+@admin.register(Receiving)
+class ReceivingAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "voucher_no",
+        "warehouse",
+        "supplier",
+        "received_by",
+        "date"
+    )
+
+    list_filter = (
+        "warehouse",
+        "date"
+    )
+
+
+
 admin.site.register(ReceivingItem)
 
-admin.site.register(Issue)
+
+
+@admin.register(Issue)
+class IssueAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "voucher_no",
+        "department",
+        "warehouse",
+        "status",
+        "approved_by",
+        "date"
+    )
+
+
+    list_filter = (
+        "status",
+        "warehouse",
+        "date"
+    )
+
+
+    search_fields = (
+        "voucher_no",
+        "department"
+    )
+
+
+
 admin.site.register(IssueItem)
 
-admin.site.register(Transfer)
+
+
+@admin.register(Transfer)
+class TransferAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "voucher_no",
+        "from_warehouse",
+        "to_warehouse",
+        "approved_by",
+        "date"
+    )
+
+
 admin.site.register(TransferItem)
 
-admin.site.register(Return)
+
+
+@admin.register(Return)
+class ReturnAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "voucher_no",
+        "item",
+        "quantity",
+        "condition",
+        "date"
+    )

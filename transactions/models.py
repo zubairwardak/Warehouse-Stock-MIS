@@ -113,6 +113,32 @@ class Issue(models.Model):
         auto_now_add=True
     )
 
+    STATUS_CHOICES = (
+
+       ('PENDING', 'Pending'),
+
+       ('APPROVED', 'Approved'),
+
+       ('REJECTED', 'Rejected'),
+
+       ('COMPLETED', 'Completed'),
+
+    )
+    
+    status = models.CharField(
+       max_length=20,
+       choices=STATUS_CHOICES,
+       default='PENDING'
+    )
+
+    approved_by = models.ForeignKey(
+       User,
+       on_delete=models.SET_NULL,
+       null=True,
+       blank=True,
+       related_name="approved_issues"
+    )
+
 
     purpose = models.TextField()
 
@@ -293,9 +319,11 @@ def update_stock_after_issue(
 
     if created:
 
-        decrease_stock(
-            item=instance.item,
-            warehouse=instance.issue.warehouse,
-            location=instance.issue.warehouse.locations.first(),
-            quantity=instance.quantity
-        )
+        if instance.issue.status == "APPROVED":
+
+            decrease_stock(
+                item=instance.item,
+                warehouse=instance.issue.warehouse,
+                location=instance.issue.warehouse.locations.first(),
+                quantity=instance.quantity
+            )
